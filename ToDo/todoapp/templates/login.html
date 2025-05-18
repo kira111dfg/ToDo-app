@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link type="text/css" href="{% static 'css/base.css' %}" rel="stylesheet" />
+   
+    <title>Login</title>
+  </head>
+  <body>
+    <div class="signup-login">
+        <div class="signup-box">
+            <form method="post">
+                {% csrf_token %}
+                <div class="heading">
+                   Login
+                </div>
+        <div class="line"></div>
+        <div class="field">
+            <b>Username</b>
+            <input type="text" required class='inp' placeholder="Enter Your Username " name='fnm'>
+        </div>
+        <div class="field">
+            <b>Password</b>
+            <input type="password" class='inp' placeholder="Enter Your Password" name='pwd' required>
+        </div>
+        <div class="field">
+            <input type="submit" class='submit-button' value="Login">
+        </div>
+            </form>
+            <div class="field">
+            <b style="margin-left:165px;">Don't have an account</b>
+            <br>
+            <a class='anc' href="/">Signup</a>
+        </div>
+        </div>
+    </div>
+  </body>
