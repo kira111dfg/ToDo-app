@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from . import models
 from .models import TODOO
 from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 
 def signup(request):
     if request.method=="POST":
@@ -29,3 +30,35 @@ def loginn(request):
     return render(request, 'login.html')
 
 
+@login_required(login_url='/loginn')
+def todo(request):
+    if request.method == 'POST':
+        title=request.POST.get('title')
+        obj=models.TODOO(title=title,user=request.user)
+        obj.save()
+        user=request.user        
+        res=models.TODOO.objects.filter(user=user).order_by('-date')
+        return redirect('/todo',{'res':res})
+    res=models.TODOO.objects.filter(user=request.user).order_by('-date')
+    return render(request, 'todo.html',{'res':res,})
+
+@login_required(login_url='/loginn')
+def edit_todo(request,srno):
+    if request.method=='POST':
+        title=request.POST.get('title')
+        obj=models.TODOO.objects.get(srno=srno)
+        obj.title=title
+        obj.save()
+        return redirect('/todo')
+    obj=models.TODOO.objects.get(srno=srno)
+    return render(request,'edit_todo.html',{'obj':obj})
+
+@login_required(login_url='/loginn')
+def delete_todo(request,srno):
+    obj=models.TODOO.objects.get(srno=srno)
+    obj.delete()
+    return redirect('/todo')
+
+def signout(request):
+    logout(request)
+    return redirect('/loginn')
