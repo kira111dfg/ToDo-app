@@ -15,7 +15,7 @@ To-Do List Website
 
 Клонируй репозиторий:
    git clone https://github.com/kira111dfg/ToDo-app.git
-   cd todo-list-site
+   cd ToDo
 Установи зависимости:
 pip install -r requirements.txt
 Примените миграции:
