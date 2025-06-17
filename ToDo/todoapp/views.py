@@ -51,6 +51,7 @@ def edit_todo(request,srno):
         obj.save()
         return redirect('/todo')
     obj=models.TODOO.objects.get(srno=srno)
+
     return render(request,'edit_todo.html',{'obj':obj})
 
 @login_required(login_url='/loginn')
